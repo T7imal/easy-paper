@@ -60,6 +60,8 @@
   small-space: 0.75em,
   // 颜色设置
   raw-color: rgb("#f0f0f0"),
+  problem-color: rgb(241, 241, 255),
+  summary-color: rgb(240, 248, 255),
 )
 
 // ================================
@@ -87,7 +89,7 @@
   set text(font: config.emph-font)
   problem-counter.step()
   block(
-    fill: rgb(241, 241, 255),
+    fill: config.problem-color,
     inset: 8pt,
     radius: 2pt,
     width: 100%,
@@ -101,14 +103,32 @@
 // 解答框
 #let solution(it) = {
   set enum(numbering: "(1)")
-  (
-    block(
-      inset: 8pt,
-      below: config.leading,
-      width: 100%,
-    )[*解答.* #h(config.small-space) #it]
-      + fake-par
-  )
+  block(
+    inset: 8pt,
+    below: config.leading,
+    width: 100%,
+  )[
+    *解答.*
+    #h(config.small-space)
+    #it
+  ]
+  fake-par
+}
+
+// 总结框
+#let summary(it) = {
+  set text(font: config.emph-font)
+  block(
+    fill: config.summary-color,
+    inset: 8pt,
+    radius: 2pt,
+    width: 100%,
+  )[
+    *总结.*
+    #h(config.small-space)
+    #it
+  ]
+  fake-par
 }
 
 // 三线表格

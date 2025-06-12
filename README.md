@@ -47,6 +47,13 @@
 ]
 ```
 
+**总结框：**
+```typst
+#summary[
+  这里可以写总结性的内容。
+]
+```
+
 **三线表格：**
 ```typst
 #show table: three-line-table // 启用三线表格样式
