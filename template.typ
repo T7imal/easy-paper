@@ -81,24 +81,37 @@
 // 学术组件
 // ================================
 
-// 题目计数器
-#let problem-counter = counter("problem")
-
-// 题目框
-#let problem(it) = {
+// 通用框组件
+#let custom-block(
+  title: none,
+  color: rgb(245, 245, 245),
+  it,
+) = {
   set text(font: config.emph-font)
-  problem-counter.step()
   block(
-    fill: config.problem-color,
+    fill: color,
     inset: 8pt,
     radius: 2pt,
     width: 100%,
   )[
-    *题目 #context problem-counter.display().*
-    #h(config.small-space)
+    #if title != none [
+      *#title*
+      #h(config.small-space)
+    ]
     #it
   ]
+  fake-par
 }
+
+// 题目框
+#let problem-counter = counter("problem")
+#let problem = custom-block.with(
+  title: [
+    #problem-counter.step()
+    题目 #context problem-counter.display().
+  ],
+  color: config.problem-color,
+)
 
 // 解答框
 #let solution(it) = {
@@ -116,20 +129,10 @@
 }
 
 // 总结框
-#let summary(it) = {
-  set text(font: config.emph-font)
-  block(
-    fill: config.summary-color,
-    inset: 8pt,
-    radius: 2pt,
-    width: 100%,
-  )[
-    *总结.*
-    #h(config.small-space)
-    #it
-  ]
-  fake-par
-}
+#let summary = custom-block.with(
+  title: [总结.],
+  color: config.summary-color,
+)
 
 // 三线表格
 #let three-line-table(
