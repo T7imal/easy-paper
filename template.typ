@@ -62,6 +62,9 @@
   raw-color: rgb("#f0f0f0"),
   problem-color: rgb(241, 241, 255),
   summary-color: rgb(240, 248, 255),
+  // 列表样式
+  list-marker: ([•], [◦], [▶]),
+  enum-numbering: ("1.", "(1)", "①"),
 )
 
 // ================================
@@ -219,8 +222,20 @@
   )
   set bibliography(style: "gb-7714-2015-numeric")
   set outline(indent: config.indent)
-  set enum(indent: config.indent)
-  set list(indent: config.indent)
+  set enum(
+    indent: config.indent,
+    full: true,
+    numbering: (..n) => {
+      n = n.pos()
+      let level = n.len()
+      let number = config.enum-numbering.at(level - 1, default: "1.")
+      numbering(number, ..n.slice(level - 1))
+    },
+  )
+  set list(
+    indent: config.indent,
+    marker: config.list-marker,
+  )
   set math.equation(numbering: "(1)")
   set underline(evade: false)
 
@@ -283,8 +298,16 @@
   show image: it => it + fake-par
 
   // 列表样式
-  show list: it => it + fake-par
-  show enum: it => it + fake-par
+  show list: it => {
+    set list(indent: 0em)
+    set enum(indent: 0em)
+    it + fake-par
+  }
+  show enum: it => {
+    set list(indent: 0em)
+    set enum(indent: 0em)
+    it + fake-par
+  }
   show terms: it => {
     set text(font: config.caption-font)
     it + fake-par
