@@ -107,6 +107,18 @@ Windows 大部分字体已内置，macOS/Linux 可能需要额外安装中文字
 
 模板中提供了一些自定义设置，如字体、字号、段间距等。可根据需求自行修改 `template.typ` 中 `config` 配置。
 
+| 配置项 | 默认值 | 说明 |
+|--------|--------|------|
+| text-size | 10.5pt (五号) | 正文字号 |
+| author-size | 10.5pt (五号) | 作者字号 |
+| title-size | 18pt (二号) | 标题字号 |
+| title1-size | 15pt (小三) | 一级标题字号 |
+| title2-size | 14pt (四号) | 二级标题字号 |
+| title3-size | 12pt (小四) | 三级标题字号 |
+| spacing | 1.5em | 段间距 |
+| leading | 1.0em | 行间距 |
+| indent | 2em | 缩进 |
+| small-space | 0.75em | 小间距 |
 
 ## 效果展示
 
