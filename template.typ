@@ -74,7 +74,7 @@
 // 解决首段缩进问题的空白段
 #let fake-par = {
   par(box())
-  v(-config.leading)
+  v(-config.spacing)
 }
 
 // 偏微分符号
