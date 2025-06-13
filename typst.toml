@@ -1,0 +1,8 @@
+[package]
+name = "easypaper"
+version = "0.1.0"
+entrypoint = "src/lib.typ"
+authors = ["Dawnfz-Lenfeng"]
+license = "MIT"
+description = "开箱即用的中文论文模板"
+exclude = ["assets"]

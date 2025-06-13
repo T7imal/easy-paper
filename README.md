@@ -4,10 +4,12 @@
 
 ## 快速开始
 
-将 `template.typ` 文件复制到你的项目根目录。新建 `.typ` 文件，导入模板：
+### 简单使用
+
+简单使用可以将 `src/lib.typ` 文件复制到你的项目根目录。新建 `.typ` 文件，导入模板：
 
 ```typst
-#import "/template.typ": *
+#import "/lib.typ": *
 #show: project.with(
   title: "文档标题",
   author: "作者姓名",
@@ -25,6 +27,33 @@
 == 子标题
 
 更多内容...
+```
+
+### 使用本地包
+
+参考 [Typst 文档](https://github.com/typst/packages/blob/main/README.md)，可以安装本地包，以便在不同项目中使用：
+```bash
+git clone https://github.com/Dawnfz-Lenfeng/EasyPaper.git {data-dir}/typst/packages/local/easypaper/0.1.0
+```
+
+这里的 `{data-dir}` 是
+
+- Linux 上为 `$XDG_DATA_HOME` 或 `~/.local/share`
+- macOS 上为 `~/Library/Application Support`
+- Windows 上为 `%APPDATA%`，即 `C:\Users\<用户名>\AppData\Roaming`
+  
+然后使用
+```typst
+#import "@local/easypaper:0.1.0": *
+#show: project.with(
+  title: "文档标题",
+  author: "作者姓名",
+  date: auto,
+  abstract: [
+    摘要内容...
+  ],
+  keywords: ("关键词1", "关键词2")
+)
 ```
 
 ## 使用说明
@@ -122,8 +151,8 @@ Windows 大部分字体已内置，macOS/Linux 可能需要额外安装中文字
 
 ## 效果展示
 
-![](./output/output-1.png)
-![](./output/output-2.png)
+![](./assets/output-1.png)
+![](./assets/output-2.png)
 
 ## 致谢
 

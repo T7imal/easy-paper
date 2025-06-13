@@ -64,7 +64,7 @@
   summary-color: rgb(240, 248, 255),
   // 列表样式
   list-marker: ([•], [◦], [▶]),
-  enum-numbering: ("1.", "(1)", "①"),
+  enum-numbering: ("1.", "(1)", "①", "a."),
 )
 
 // ================================
@@ -276,6 +276,7 @@
 
   // 数学公式：无标签则不编号
   show math.equation: it => {
+    set block(breakable: true)
     if it.block and not it.has("label") [
       #counter(math.equation).update(v => v - 1)
       #math.equation(it.body, block: true, numbering: none)#label("")

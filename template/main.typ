@@ -1,5 +1,4 @@
-#import "/template.typ": *
-
+#import "@local/easypaper:0.1.0": *
 #show: project.with(
   title: "EasyPaper 模板使用示例",
   author: "张三",
@@ -9,6 +8,7 @@
   ],
   keywords: ("Typst", "模板", "学术写作"),
 )
+#show table: three-line-table
 
 = 基本功能
 
@@ -74,8 +74,6 @@ $
 $
 
 == 表格功能
-
-#show table: three-line-table
 
 #figure(
   table(
