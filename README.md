@@ -4,39 +4,39 @@
 
 ## 快速开始
 
-### 简单使用
+### 导入模板
 
-简单使用可以将 `lib.typ` 文件复制到你的项目根目录。新建 `.typ` 文件，导入模板：
+#### 方法一：
+
+可以直接将 `lib.typ` 文件复制到你的项目根目录。然后在你的 Typst 文件顶部导入模板。
 
 ```typst
 #import "/lib.typ": *
-#show: project.with(
-  title: "文档标题",
-  author: "作者姓名",
-  date: auto,
-  abstract: [
-    摘要内容...
-  ],
-  keywords: ("关键词1", "关键词2")
-)
 ```
 
-### 使用本地包
+#### 方法二：
 
 参考 [Typst 文档](https://github.com/typst/packages/blob/main/README.md)，可以安装本地包，以便在不同项目中使用：
+
 ```bash
 git clone https://github.com/Dawnfz-Lenfeng/easy-paper.git {data-dir}/typst/packages/local/easy-paper/0.1.0
 ```
 
-这里的 `{data-dir}` 是
+这里的 `{data-dir}` 是：
 
-- Linux 上为 `$XDG_DATA_HOME` 或 `~/.local/share`
-- macOS 上为 `~/Library/Application Support`
-- Windows 上为 `%APPDATA%`，即 `C:/Users/<用户名>/AppData/Roaming`
+- Linux： `$XDG_DATA_HOME` 或 `~/.local/share`
+- macOS： `~/Library/Application Support`
+- Windows： `%APPDATA%`，即 `C:/Users/<用户名>/AppData/Roaming`
 
-然后使用
+然后使用：
+
 ```typst
 #import "@local/easy-paper:0.1.0": *
+```
+
+### 使用模板
+
+```typst
 #show: project.with(
   title: "文档标题",
   author: "作者姓名",
@@ -46,6 +46,12 @@ git clone https://github.com/Dawnfz-Lenfeng/easy-paper.git {data-dir}/typst/pack
   ],
   keywords: ("关键词1", "关键词2")
 )
+```
+
+或者在安装本地包后直接使用 Typst-CLI 初始化：
+
+```bash
+typst init @local/easy-paper:0.1.0
 ```
 
 ## 使用说明
