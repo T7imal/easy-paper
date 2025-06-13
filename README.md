@@ -40,7 +40,7 @@ git clone https://github.com/Dawnfz-Lenfeng/EasyPaper.git {data-dir}/typst/packa
 
 - Linux 上为 `$XDG_DATA_HOME` 或 `~/.local/share`
 - macOS 上为 `~/Library/Application Support`
-- Windows 上为 `%APPDATA%`，即 `C:\Users\<用户名>\AppData\Roaming`
+- Windows 上为 `%APPDATA%`，即 `C:/Users/<用户名>/AppData/Roaming`
   
 然后使用
 ```typst
