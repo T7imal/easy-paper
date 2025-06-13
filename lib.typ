@@ -180,7 +180,7 @@
   date: none,
   abstract: none,
   keywords: (),
-  body,
+  doc,
 ) = {
   // 文档设置
   set document(author: author, title: title, date: date, keywords: keywords)
@@ -392,5 +392,5 @@
   ]
 
   // 正文内容
-  body
+  doc
 }

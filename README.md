@@ -1,4 +1,4 @@
-# EasyPaper
+# easy-paper
 
 一个基于 [SimplePaper](https://github.com/jinhao-huang/SimplePaper) 改进的 Typst 模板，可用于日常报告/作业等。只需一个文件，无需外置库，使用 Windows 系统内置字体，即可开始创作。
 
@@ -6,7 +6,7 @@
 
 ### 简单使用
 
-简单使用可以将 `src/lib.typ` 文件复制到你的项目根目录。新建 `.typ` 文件，导入模板：
+简单使用可以将 `lib.typ` 文件复制到你的项目根目录。新建 `.typ` 文件，导入模板：
 
 ```typst
 #import "/lib.typ": *
@@ -19,21 +19,13 @@
   ],
   keywords: ("关键词1", "关键词2")
 )
-
-= 第一章 引言
-
-这里是正文内容...
-
-== 子标题
-
-更多内容...
 ```
 
 ### 使用本地包
 
 参考 [Typst 文档](https://github.com/typst/packages/blob/main/README.md)，可以安装本地包，以便在不同项目中使用：
 ```bash
-git clone https://github.com/Dawnfz-Lenfeng/EasyPaper.git {data-dir}/typst/packages/local/easypaper/0.1.0
+git clone https://github.com/Dawnfz-Lenfeng/easy-paper.git {data-dir}/typst/packages/local/easy-paper/0.1.0
 ```
 
 这里的 `{data-dir}` 是
@@ -41,10 +33,10 @@ git clone https://github.com/Dawnfz-Lenfeng/EasyPaper.git {data-dir}/typst/packa
 - Linux 上为 `$XDG_DATA_HOME` 或 `~/.local/share`
 - macOS 上为 `~/Library/Application Support`
 - Windows 上为 `%APPDATA%`，即 `C:/Users/<用户名>/AppData/Roaming`
-  
+
 然后使用
 ```typst
-#import "@local/easypaper:0.1.0": *
+#import "@local/easy-paper:0.1.0": *
 #show: project.with(
   title: "文档标题",
   author: "作者姓名",
@@ -134,20 +126,20 @@ Windows 大部分字体已内置，macOS/Linux 可能需要额外安装中文字
 
 ### 自定义设置
 
-模板中提供了一些自定义设置，如字体、字号、段间距等。可根据需求自行修改 `template.typ` 中 `config` 配置。
+模板中提供了一些自定义设置，如字体、字号、段间距等。可根据需求自行修改 `lib.typ` 中 `config` 配置。
 
-| 配置项 | 默认值 | 说明 |
-|--------|--------|------|
-| text-size | 10.5pt (五号) | 正文字号 |
-| author-size | 10.5pt (五号) | 作者字号 |
-| title-size | 18pt (二号) | 标题字号 |
-| title1-size | 15pt (小三) | 一级标题字号 |
-| title2-size | 14pt (四号) | 二级标题字号 |
-| title3-size | 12pt (小四) | 三级标题字号 |
-| spacing | 1.5em | 段间距 |
-| leading | 1.0em | 行间距 |
-| indent | 2em | 缩进 |
-| small-space | 0.75em | 小间距 |
+| 配置项      | 默认值        | 说明         |
+| ----------- | ------------- | ------------ |
+| text-size   | 10.5pt (五号) | 正文字号     |
+| author-size | 10.5pt (五号) | 作者字号     |
+| title-size  | 18pt (二号)   | 标题字号     |
+| title1-size | 15pt (小三)   | 一级标题字号 |
+| title2-size | 14pt (四号)   | 二级标题字号 |
+| title3-size | 12pt (小四)   | 三级标题字号 |
+| spacing     | 1.5em         | 段间距       |
+| leading     | 1.0em         | 行间距       |
+| indent      | 2em           | 缩进         |
+| small-space | 0.75em        | 小间距       |
 
 ## 效果展示
 

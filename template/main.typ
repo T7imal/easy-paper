@@ -1,4 +1,4 @@
-#import "@local/easypaper:0.1.0": *
+#import "@local/easy-paper:0.1.0": *
 #show: project.with(
   title: "EasyPaper 模板使用示例",
   author: "张三",
