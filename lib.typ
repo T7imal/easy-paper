@@ -57,7 +57,8 @@
   spacing: 1.5em,
   leading: 1.0em,
   indent: 2em,
-  small-space: 0.75em,
+  small-space: 1em,
+  block-space: 0.75em,
   // 颜色设置
   raw-color: rgb("#f0f0f0"),
   problem-color: rgb(241, 241, 255),
@@ -91,18 +92,19 @@
   it,
 ) = {
   set text(font: config.emph-font)
+  let body = if title != none {
+    strong(title) + h(config.block-space) + it
+  } else {
+    it
+  }
+
   block(
     fill: color,
     inset: 8pt,
     radius: 2pt,
     width: 100%,
-  )[
-    #if title != none [
-      *#title*
-      #h(config.small-space)
-    ]
-    #it
-  ]
+    body,
+  )
   fake-par
 }
 
@@ -119,15 +121,13 @@
 // 解答框
 #let solution(it) = {
   set enum(numbering: "(1)")
+  let body = [*解答.*] + h(config.block-space) + it
   block(
     inset: 8pt,
     below: config.leading,
     width: 100%,
-  )[
-    *解答.*
-    #h(config.small-space)
-    #it
-  ]
+    body,
+  )
   fake-par
 }
 
@@ -180,7 +180,7 @@
   date: none,
   abstract: none,
   keywords: (),
-  doc,
+  body,
 ) = {
   // 文档设置
   set document(author: author, title: title, date: date, keywords: keywords)
@@ -243,12 +243,15 @@
   // 标题样式
   // ================================
 
-  show heading: it => box(width: 100%)[
-    #set text(font: config.heading-font)
-    #if it.numbering != none { counter(heading).display() }
-    #h(config.small-space)
-    #it.body
-  ]
+  show heading: it => {
+    set text(font: config.heading-font)
+    let body = if it.numbering != none {
+      counter(heading).display() + h(config.small-space) + it.body
+    } else {
+      it.body
+    }
+    box(width: 100%, body)
+  }
 
   show heading.where(level: 1): it => {
     set align(center)
@@ -366,7 +369,7 @@
   // 作者
   if author != "" {
     set text(config.author-size, font: config.author-font)
-    align(center)[#author]
+    align(center, author)
   }
 
   // 日期
@@ -377,7 +380,7 @@
       date
     }
     set text(config.author-size, font: config.author-font)
-    align(center)[#date]
+    align(center, date)
   }
 
   // 摘要和关键词
@@ -392,5 +395,5 @@
   ]
 
   // 正文内容
-  doc
+  body
 }
