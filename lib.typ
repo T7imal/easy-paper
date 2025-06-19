@@ -66,6 +66,9 @@
   // 列表样式
   list-marker: ([•], [◦], [▶]),
   enum-numbering: ("1.", "(1)", "①", "a."),
+  // 表格样式
+  table-stroke: 0.08em,
+  table-header-stroke: 0.05em,
 )
 
 // ================================
@@ -138,11 +141,7 @@
 )
 
 // 三线表格
-#let three-line-table(
-  top-stroke: 0.08em,
-  mid-stroke: 0.05em,
-  it,
-) = {
+#let three-line-table(it) = {
   if it.children.any(c => c.func() == table.hline) {
     return it
   }
@@ -162,12 +161,62 @@
 
   return table(
     ..meta,
-    table.hline(stroke: top-stroke),
+    table.hline(stroke: config.table-stroke),
     header,
-    table.hline(stroke: mid-stroke),
+    table.hline(stroke: config.table-header-stroke),
     ..cells,
-    table.hline(stroke: top-stroke),
+    table.hline(stroke: config.table-stroke),
   )
+}
+
+// 标题
+#let make-title(
+  title: "",
+  author: "",
+  date: none,
+  abstract: none,
+  keywords: (),
+) = {
+  // 主标题
+  align(center)[
+    #block(
+      text(
+        font: config.title-font,
+        weight: "bold",
+        config.title-size,
+        title,
+      ),
+    )
+    #v(0.5em)
+  ]
+
+  // 作者
+  if author != "" {
+    set text(config.author-size, font: config.author-font)
+    align(center, author)
+  }
+
+  // 日期
+  if date != none {
+    date = if date == auto {
+      datetime.today().display("[year]年[month]月[day]日")
+    } else {
+      date
+    }
+    set text(config.author-size, font: config.author-font)
+    align(center, date)
+  }
+
+  // 摘要和关键词
+  if abstract != none [
+    #v(2pt)
+    *摘要：* #abstract
+
+    #if keywords != () [
+      *关键字：* #keywords.join("；")
+    ]
+    #v(2pt)
+  ]
 }
 
 // ================================
@@ -221,7 +270,6 @@
     spacing: config.spacing,
   )
   set bibliography(style: "gb-7714-2015-numeric")
-  set outline(indent: config.indent)
   set enum(
     indent: config.indent,
     full: true,
@@ -352,47 +400,13 @@
   // ================================
   // 文档标题部分
   // ================================
-
-  // 主标题
-  align(center)[
-    #block(
-      text(
-        font: config.title-font,
-        weight: "bold",
-        config.title-size,
-        title,
-      ),
-    )
-    #v(0.5em)
-  ]
-
-  // 作者
-  if author != "" {
-    set text(config.author-size, font: config.author-font)
-    align(center, author)
-  }
-
-  // 日期
-  if date != none {
-    date = if date == auto {
-      datetime.today().display("[year]年[month]月[day]日")
-    } else {
-      date
-    }
-    set text(config.author-size, font: config.author-font)
-    align(center, date)
-  }
-
-  // 摘要和关键词
-  if abstract != none [
-    #v(2pt)
-    *摘要：* #abstract
-
-    #if keywords != () [
-      *关键字：* #keywords.join("；")
-    ]
-    #v(2pt)
-  ]
+  make-title(
+    title: title,
+    author: author,
+    date: date,
+    abstract: abstract,
+    keywords: keywords,
+  )
 
   // 正文内容
   body
