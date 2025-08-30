@@ -187,7 +187,7 @@
   line(stroke: 1pt + gray, length: 100%)
 }
 
-#let last-header-style() = context {
+#let prev-header = context {
   let headings = query(heading.where(level: 1).before(here()))
   if headings.len() == 0 {
     return
@@ -197,7 +197,7 @@
   header-style(heading)
 }
 
-#let next-header-style() = context {
+#let next-header = context {
   let headings = query(heading.where(level: 1).after(here()))
   if headings.len() == 0 {
     return
@@ -280,7 +280,7 @@
   set page(
     numbering: "1",
     number-align: center,
-    header: last-header-style(),
+    header: prev-header,
   )
 
   // 基础样式设置
