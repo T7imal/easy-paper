@@ -72,6 +72,13 @@
 )
 
 // ================================
+// 全局状态
+// ================================
+
+// 全局title状态
+#let title-state = state("document-title", "")
+
+// ================================
 // 工具函数
 // ================================
 
@@ -169,6 +176,38 @@
   )
 }
 
+#let header-style(heading) = {
+  set text(font: config.header-font)
+  let title = title-state.get()
+  grid(
+    columns: (1fr, 1fr),
+    align(left, title), align(right, heading),
+  )
+  v(-1.2em)
+  line(stroke: 1pt + gray, length: 100%)
+}
+
+#let last-header-style() = context {
+  let headings = query(heading.where(level: 1).before(here()))
+  if headings.len() == 0 {
+    return
+  }
+  let level = counter(heading.where(level: 1)).display("一")
+  let heading = level + h(config.small-space) + headings.last().body
+  header-style(heading)
+}
+
+#let next-header-style() = context {
+  let headings = query(heading.where(level: 1).after(here()))
+  if headings.len() == 0 {
+    return
+  }
+  let count = counter(heading.where(level: 1)).get().first() + 1
+  let level = numbering("一", count)
+  let heading = level + h(config.small-space) + headings.first().body
+  header-style(heading)
+}
+
 // 标题
 #let make-title(
   title: "",
@@ -210,6 +249,7 @@
   // 摘要和关键词
   if abstract != none [
     #v(2pt)
+    #fake-par
     *摘要：* #abstract
 
     #if keywords != () [
@@ -231,6 +271,8 @@
   keywords: (),
   body,
 ) = {
+  title-state.update(title)
+
   // 文档设置
   set document(author: author, title: title, date: date, keywords: keywords)
 
@@ -238,21 +280,7 @@
   set page(
     numbering: "1",
     number-align: center,
-    header: context {
-      set text(font: config.header-font)
-      let headings = query(heading.where(level: 1).before(here()))
-      if headings.len() == 0 {
-        return
-      }
-      let level = counter(heading.where(level: 1)).display("一")
-      let heading = level + h(config.small-space) + headings.last().body
-      grid(
-        columns: (1fr, 1fr),
-        align(left, title), align(right, heading),
-      )
-      v(-1.2em)
-      line(stroke: 1pt + gray, length: 100%)
-    },
+    header: last-header-style(),
   )
 
   // 基础样式设置
@@ -269,7 +297,6 @@
     leading: config.leading,
     spacing: config.spacing,
   )
-  set bibliography(style: "gb-7714-2015-numeric")
   set enum(
     indent: config.indent,
     full: true,
